@@ -19,6 +19,7 @@ public class MainMVC {
         // Create and show the view on the Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
             View_Accueil va = new View_Accueil();
+            // If View_Accueil provides showWindow(), prefer that; otherwise this is equivalent to setVisible(true)
             va.setVisible(true);
         });
     }
