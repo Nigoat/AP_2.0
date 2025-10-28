@@ -2,57 +2,54 @@ package View;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.awt.CardLayout;
+import java.util.Collections;
+import java.util.List;
+import Model.LIVRE;
 
 public class View_Accueil extends JFrame {
     private JButton btnCatalogue;
     private JButton btnRecherche;
     private JButton btnQuitter;
 
-    // CardLayout stuff
-    private CardLayout cardLayout;
-    private JPanel cardPanel;
-    private boolean showingHome = true;
-
     public View_Accueil() {
         setTitle("Accueil Bibliothèque");
-        setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
 
-        // Card container: HOME = the original page, EMPTY = nothing (blank panel)
-        cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout);
-
-        // HOME panel (original content)
-        JPanel homePanel = new JPanel();
+        JPanel panel = new JPanel();
         JLabel label = new JLabel("📚 Bienvenue dans la Bibliothèque");
         btnCatalogue = new JButton("Voir le Catalogue");
         btnRecherche = new JButton("Rechercher un Livre");
         btnQuitter = new JButton("Quitter");
 
-        homePanel.add(label);
-        homePanel.add(btnCatalogue);
-        homePanel.add(btnRecherche);
-        homePanel.add(btnQuitter);
+        panel.add(label);
+        panel.add(btnCatalogue);
+        panel.add(btnRecherche);
+        panel.add(btnQuitter);
 
-        // EMPTY panel: intentionally blank (nothing more)
-        JPanel emptyPanel = new JPanel();
+        add(panel);
 
-        cardPanel.add(homePanel, "HOME");
-        cardPanel.add(emptyPanel, "EMPTY");
+        // Minimal behavior: open the corresponding view when the buttons are clicked.
+        // Catalogue opens View_Catalogue with an (empty) list if no model is available.
+        btnCatalogue.addActionListener(e -> {
+            List<LIVRE> empty = Collections.emptyList();
+            View_Catalogue vc = new View_Catalogue(empty);
+            vc.showWindow();
+        });
 
-        add(cardPanel);
-
-        // Minimal behavior: toggle between HOME and EMPTY when Catalogue or Recherche is clicked
-        btnCatalogue.addActionListener(e -> toggleCard());
-        btnRecherche.addActionListener(e -> toggleCard());
+        // Recherche opens View_Livre with null (the View_Livre handles null safely).
+        btnRecherche.addActionListener(e -> {
+            View_Livre vl = new View_Livre(null);
+            vl.showWindow();
+        });
 
         // Quit simply closes the window
         btnQuitter.addActionListener(e -> dispose());
+
+        pack();
+        setLocationRelativeTo(null);
     }
 
-    // Méthodes pour brancher les boutons (left as-is so external controller can attach listeners)
+    // Méthodes pour brancher les boutons (kept so controllers can attach extra listeners)
     public void addCatalogueListener(ActionListener listener) {
         btnCatalogue.addActionListener(listener);
     }
@@ -65,13 +62,8 @@ public class View_Accueil extends JFrame {
         btnQuitter.addActionListener(listener);
     }
 
-    // Internal toggle: show EMPTY if HOME is shown, otherwise show HOME.
-    private void toggleCard() {
-        if (showingHome) {
-            cardLayout.show(cardPanel, "EMPTY");
-        } else {
-            cardLayout.show(cardPanel, "HOME");
-        }
-        showingHome = !showingHome;
+    // Show window helper (keeps behavior consistent with other views)
+    public void showWindow() {
+        SwingUtilities.invokeLater(() -> setVisible(true));
     }
 }
