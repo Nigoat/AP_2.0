@@ -33,13 +33,13 @@ public class View_Accueil extends JFrame {
         btnCatalogue.addActionListener(e -> {
             List<LIVRE> empty = Collections.emptyList();
             View_Catalogue vc = new View_Catalogue(empty);
-            vc.showWindow();
+            vc.setVisible(true);
         });
 
         // Recherche opens View_Livre with null (the View_Livre handles null safely).
         btnRecherche.addActionListener(e -> {
             View_Livre vl = new View_Livre(null);
-            vl.showWindow();
+            vl.setVisible(true);
         });
 
         // Quit simply closes the window
@@ -60,10 +60,5 @@ public class View_Accueil extends JFrame {
 
     public void addQuitterListener(ActionListener listener) {
         btnQuitter.addActionListener(listener);
-    }
-
-    // Show window helper (keeps behavior consistent with other views)
-    public void showWindow() {
-        SwingUtilities.invokeLater(() -> setVisible(true));
     }
 }
