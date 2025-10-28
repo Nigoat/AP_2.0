@@ -16,11 +16,13 @@ public class MainMVC {
         System.out.println("lancement de mon programme");
         m = new model();
 
-        // Create and show the view on the Event Dispatch Thread
-        SwingUtilities.invokeLater(() -> {
-            View_Accueil va = new View_Accueil();
-            // If View_Accueil provides showWindow(), prefer that; otherwise this is equivalent to setVisible(true)
-            va.setVisible(true);
+        // show the accueil on the EDT
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                View_Accueil va = new View_Accueil();
+                va.setVisible(true);
+            }
         });
     }
 }
