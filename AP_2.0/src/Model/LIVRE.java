@@ -1,62 +1,52 @@
 package Model;
 
-
 public class LIVRE {
- private String ISBN;
- private String titre;
- private float prix;
- private ADHERENT adherent; 
- private AUTEUR auteur;   
 
+	
+	private String ISBN;
+	private String titre;
+	private float prix;
+	private AUTEUR auteur;
+	private ADHERENT Emprunteur;
+	
+	public LIVRE(String iSBN, String titre, float prix, AUTEUR auteur, ADHERENT emprunteur) {
 
- public LIVRE(String ISBN, String titre, float prix, ADHERENT adherent, AUTEUR auteur) {
-     this.ISBN = ISBN;
-     this.titre = titre;
-     this.prix = prix;
-     this.adherent = adherent;
-     this.auteur = auteur;
- }
-
-public String getISBN() {
-	return ISBN;
+		ISBN = iSBN;
+		this.titre = titre;
+		this.prix = prix;
+		this.auteur = auteur;
+		Emprunteur = emprunteur;
+	}
+	public String getISBN() {
+		return ISBN;
+	}
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public float getPrix() {
+		return prix;
+	}
+	public void setPrix(float prix) {
+		this.prix = prix;
+	}
+	public AUTEUR getAuteur() {
+		return auteur;
+	}
+	public void setAuteur(AUTEUR auteur) {
+		this.auteur = auteur;
+	}
+	public ADHERENT getEmprunteur() {
+		return Emprunteur;
+	}
+	public void setEmprunteur(ADHERENT emprunteur) {
+		Emprunteur = emprunteur;
+	}
+	
+	
 }
-
-public void setISBN(String iSBN) {
-	ISBN = iSBN;
-}
-
-public String getTitre() {
-	return titre;
-}
-
-public void setTitre(String titre) {
-	this.titre = titre;
-}
-
-public double getPrix() {
-	return prix;
-}
-
-public void setPrix(float prix) {
-	this.prix = prix;
-}
-
-public ADHERENT getAdherent() {
-	return adherent;
-}
-
-public void setAdherent(ADHERENT adherent) {
-	this.adherent = adherent;
-}
-
-public AUTEUR getAuteur() {
-	return auteur;
-}
-
-public void setAuteur(AUTEUR auteur) {
-	this.auteur = auteur;
-}
- 
-
-}
-

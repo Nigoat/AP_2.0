@@ -19,7 +19,7 @@ public class View_Livre extends JFrame {
         sb.append("ISBN: ").append(livre.getISBN()).append("\n");
         sb.append("Titre: ").append(livre.getTitre()).append("\n");
         sb.append("Prix: ").append(livre.getPrix()).append(" €\n");
-        sb.append("Adhérent: ").append(livre.getAdherent()).append("\n");
+        sb.append("Adhérent: ").append(livre.getEmprunteur()).append("\n");
         sb.append("Auteur: ").append(livre.getAuteur()).append("\n");
 
         textArea.setText(sb.toString());

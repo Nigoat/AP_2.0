@@ -1,117 +1,132 @@
-	package Model;
-	
-	import java.sql.Connection;
-	import java.sql.DriverManager;
-	import java.util.ArrayList;
-	import java.util.List;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.sql.Statement;
-	
-	public class model {
-	
-	    private ArrayList<LIVRE> listLivre;
-	    private ArrayList<ADHERENT> listAdherent;
-	    private ArrayList<AUTEUR> listAuteur;
-	
-	    private final String BDD = "bbd_bibli";
-	    private final String url = "jdbc:mysql://localhost:3306/" + BDD;
-	    private final String user = "root";
-	    private final String passwd = "";
-	    private Connection conn;
-	    
-	    public model() throws ClassNotFoundException, SQLException {
-	    	
-	        listLivre = new ArrayList<>();
-	        listAuteur = new ArrayList<>();
-	        listAdherent = new ArrayList<>();
-	        
-	        Class.forName("com.mysql.jdbc.Driver");
-	        conn = DriverManager.getConnection(url, user, passwd);
-            System.out.println("Connexion OK");
-            AUTEUR au1 = new AUTEUR("Antoine de Saint-Exupéry", null, null, null, null);
-	        AUTEUR au2 = new AUTEUR("Victor Hugo", null, null, null, null);
-	        AUTEUR au3 = new AUTEUR("Gustave Flaubert", null, null, null, null);
-	        AUTEUR au4 = new AUTEUR("Albert Camus", null, null, null, null);
-	        AUTEUR au5 = new AUTEUR("J.K. Rowling", null, null, null, null);
-	
-	        // ==== Adhérents ====
-	        ADHERENT ad1 = new ADHERENT("Jean Dupont", null, null, null, null);
-	        ADHERENT ad2 = new ADHERENT("Claire Martin", null, null, null, null);
-	        ADHERENT ad3 = new ADHERENT("Luc Bernard", null, null, null, null);
-	
-	        // ==== Livres ====
-	        listLivre.add(new LIVRE("ISBN101", "Le Petit Prince", 13.50f, ad1, au1));
-	        listLivre.add(new LIVRE("ISBN102", "Les Misérables", 19.99f, ad2, au2));
-	        listLivre.add(new LIVRE("ISBN103", "Madame Bovary", 16.80f, null, au3));
-	        listLivre.add(new LIVRE("ISBN104", "L'Étranger", 14.00f, ad3, au4));
-	        listLivre.add(new LIVRE("ISBN105", "Harry Potter à l'école des sorciers", 24.50f, null, au5));
-	        listLivre.add(new LIVRE("ISBN106", "Les Misérables - Tome 2", 21.00f, ad1, au2));
-	        listLivre.add(new LIVRE("ISBN107", "Le Petit Prince - Edition Collector", 15.75f, null, au1));
-	
-	        // ==== Ajout auteurs ====
-	        listAuteur.add(au1);
-	        listAuteur.add(au2);
-	        listAuteur.add(au3);
-	        listAuteur.add(au4);
-	        listAuteur.add(au5);
-	
-	        // ==== Ajout adhérents ====
-	        listAdherent.add(ad1);
-	        listAdherent.add(ad2);
-	        listAdherent.add(ad3);
-	           
-	            
-	        ResultSet résultats;
-	        String requete = "SELECT * FROM ADHERENT";
-	        Statement stmt = conn.createStatement();
-	        résultats = stmt.executeQuery(requete);
-	        System.out.println("ok");
-	        while (résultats.next()) {
-	            System.out.println(résultats.getString(1) + " : " + résultats.getString(2));
-	        }
+package Model;
 
+import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-	    }
-	  	    
-	
-	
-	    public void getAll() throws ClassNotFoundException, SQLException {       
-	    	
-	    
-	        Statement stmt = conn.createStatement();
-            ResultSet resultats = stmt.executeQuery("SELECT * FROM LIVRE");
+public class model {
+private ArrayList<LIVRE> listLivre;
+private ArrayList<AUTEUR> listAuteur;
+private ArrayList<ADHERENT> listAdherent;
+private Connection conn;
 
-            while (resultats.next()) {
-                LIVRE livre = new LIVRE(resultats.getString(1),resultats.getString(2),resultats.getFloat(3),null,null);
-                listLivre.add(livre);
-	        }
-	        
-	    }
-	    
-	 
-	    // Getters / Setters
-	    public ArrayList<LIVRE> getListLivre() {
-	        return listLivre;
-	    }
+//variable BDD (à changer pour local à web) 
+private String BDD = "bbd_bibli";
+private String url= "jdbc:mysql://localhost:3306/"+BDD;
+private String user="root";
+private String passwd="";
+
+public model() throws ClassNotFoundException, SQLException {
+	listLivre = new ArrayList<LIVRE>();
+	listAuteur = new ArrayList<AUTEUR>();
+	listAdherent = new ArrayList<ADHERENT>();
+	//Connexion à la base de donnée
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection(url,user,passwd);
+		System.out.println("Connexion OK");
+}
+
+public ArrayList<LIVRE> getListLivre() {
+	return listLivre;
+}
+
+public void setListLivre(ArrayList<LIVRE> listLivre) {
+	this.listLivre = listLivre;
+}
+
+public ArrayList<AUTEUR> getListAuteur() {
+	return listAuteur;
+}
+
+public void setListAuteur(ArrayList<AUTEUR> listAuteur) {
+	this.listAuteur = listAuteur;
+}
+
+public ArrayList<ADHERENT> getListAdherent() {
+	return listAdherent;
+}
+
+public void setListAdherent(ArrayList<ADHERENT> listAdherent) {
+	this.listAdherent = listAdherent;
+}
+
+public void getall() throws ClassNotFoundException, SQLException {
+	//Chargement des listes avec la bdd, on clear et on recharge pour refresh
+	listAdherent.clear();
+	listAuteur.clear();
+	listLivre.clear();
+	listLivre=new ArrayList<LIVRE>();
+	listAuteur=new ArrayList<AUTEUR>();
+	listAdherent=new ArrayList<ADHERENT>();
+	ResultSet resultats;
+	String requete;
+	Statement stmt = conn.createStatement();
 	
-	    public void setListLivre(ArrayList<LIVRE> listLivre) {
-	        this.listLivre = listLivre;
-	    }
-	
-	    public ArrayList<ADHERENT> getListAdherent() {
-	        return listAdherent;
-	    }
-	
-	    public void setListAdherent(ArrayList<ADHERENT> listAdherent) {
-	        this.listAdherent = listAdherent;
-	    }
-	
-	    public ArrayList<AUTEUR> getListAuteur() {
-	        return listAuteur;
-	    }
-	
-	    public void setListAuteur(ArrayList<AUTEUR> listAuteur) {
-	        this.listAuteur = listAuteur;
-	    }
+	//Création des auteurs
+	requete ="SELECT * FROM auteur";
+	//Exécute la requete
+	resultats = stmt.executeQuery(requete);
+	//Exploite le résultat
+	while (resultats.next()) {
+		AUTEUR a =new AUTEUR(resultats.getString(1),resultats.getString(2),resultats.getString(3),resultats.getString(4),resultats.getString(5));
+		listAuteur.add(a);
 	}
+	
+	//Création des adherents 
+	requete ="SELECT * FROM adherent";
+	
+	resultats = stmt.executeQuery(requete);
+	
+	while (resultats.next()) {
+		ADHERENT ad =new ADHERENT(resultats.getString(1),resultats.getString(2),resultats.getString(3),resultats.getString(4), new ArrayList<LIVRE>());
+		listAdherent.add(ad);
+	}
+	
+	//Création des livres
+	requete ="SELECT * FROM livre";
+
+	resultats = stmt.executeQuery(requete);
+
+	while (resultats.next()) {
+		LIVRE l =new LIVRE(resultats.getString(1),resultats.getString(2),resultats.getFloat(3), null, null);
+		if (resultats.getString(5)!=null)
+		{
+			l.setAuteur(findauteur(resultats.getString(5)));
+		}
+		if (resultats.getString(4)!=null) {
+			l.setEmprunteur(findadherent(resultats.getString(4)));
+			findadherent(resultats.getString(4)).getListLivre().add(l);
+		}
+		listLivre.add(l);
+	}
+}
+
+public AUTEUR findauteur(String num) 
+{
+	for (AUTEUR a : listAuteur) 
+	{
+		if (a.getNum().equals(num)) 
+		{
+			return a;
+		}
+	}
+	return null;
+}
+
+public ADHERENT findadherent(String num) 
+{
+	for (ADHERENT ad : listAdherent) 
+	{
+		if (ad.getNum().equals(num)) 
+		{
+			return ad;
+		}
+	}
+	return null;
+}
+}
+
+
