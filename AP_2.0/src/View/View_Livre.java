@@ -35,8 +35,9 @@ public class View_Livre extends JFrame {
             } catch (Exception e) {
                 prixStr = "N/A";
             }
-            sb.append("Prix: ").append(prixStr).append("\n");
+            sb.append("Prix: ").append(prixStr).append("\n\n");
 
+            // Emprunteur and Auteur are domain objects; display their toString() safely
             sb.append("Adhérent: ").append(safeString(livre.getEmprunteur())).append("\n");
             sb.append("Auteur: ").append(safeString(livre.getAuteur())).append("\n");
         }
