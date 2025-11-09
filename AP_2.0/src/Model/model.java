@@ -13,7 +13,6 @@ private ArrayList<AUTEUR> listAuteur;
 private ArrayList<ADHERENT> listAdherent;
 private Connection conn;
 
-//variable BDD (à changer pour local à web) 
 private String BDD = "bbd_bibli";
 private String url= "jdbc:mysql://localhost:3306/"+BDD;
 private String user="root";

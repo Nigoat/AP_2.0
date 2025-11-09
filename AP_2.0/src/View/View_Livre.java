@@ -26,7 +26,6 @@ public class View_Livre extends JFrame {
             sb.append("ISBN: ").append(safeString(livre.getISBN())).append("\n");
             sb.append("Titre: ").append(safeString(livre.getTitre())).append("\n");
 
-            // Format price with two decimals
             String prixStr;
             try {
                 double prix = livre.getPrix();
@@ -37,7 +36,6 @@ public class View_Livre extends JFrame {
             }
             sb.append("Prix: ").append(prixStr).append("\n\n");
 
-            // Emprunteur and Auteur are domain objects; display their toString() safely
             sb.append("Adhérent: ").append(safeString(livre.getEmprunteur())).append("\n");
             sb.append("Auteur: ").append(safeString(livre.getAuteur())).append("\n");
         }

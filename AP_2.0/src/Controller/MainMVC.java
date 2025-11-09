@@ -8,6 +8,8 @@ import java.sql.SQLException;
 public class MainMVC {
     private static model m;
 
+
+
     public static model getM() {
         return m;
     }
@@ -16,16 +18,13 @@ public class MainMVC {
         System.out.println("lancement de mon programme");
         try {
             m = new model();
-            // load data from DB on startup
             try {
                 m.getall();
             } catch (SQLException e) {
                 System.err.println("Erreur lors du chargement des données: " + e.getMessage());
-                // continue anyway; user can retry from UI
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            // If the model could not be created, show an error and exit
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

@@ -43,7 +43,7 @@ public class View_Catalogue extends JFrame {
         }
 
         textArea.setText(sb.toString());
-        add(new JScrollPane(textArea));
+        getContentPane().add(new JScrollPane(textArea));
 
         pack();
         setLocationRelativeTo(null);
