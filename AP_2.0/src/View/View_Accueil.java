@@ -60,6 +60,13 @@ public class View_Accueil extends JFrame {
                 vc.setVisible(true);
 
         });
+       
+        btnEmprunt.addActionListener(e -> {
+
+            View_Emprunt ve = new View_Emprunt(); 
+            ve.setVisible(true);
+
+    });
 
         // Action : ouvrir le catalogue
         btnCatalogue.addActionListener(e -> {
@@ -152,4 +159,9 @@ public class View_Accueil extends JFrame {
     public void addCompteLister(ActionListener listener) {
         btnCompte.addActionListener(listener);
     }
+    
+    public void addEmpruntLister(ActionListener listener) {
+        btnCompte.addActionListener(listener);
+    }
+    
 }

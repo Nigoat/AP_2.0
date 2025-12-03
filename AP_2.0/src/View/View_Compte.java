@@ -11,6 +11,7 @@ public class View_Compte extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JButton btnQuitter;
+	private JButton btnNewButton;
 	public View_Compte() {
 		getContentPane().setLayout(null);
 		setSize(500, 310); 
@@ -69,6 +70,10 @@ public class View_Compte extends JFrame {
 		JLabel lblNewLabel_1_5 = new JLabel("Mail");
 		lblNewLabel_1_5.setBounds(199, 87, 45, 13);
 		getContentPane().add(lblNewLabel_1_5);
+		
+		btnNewButton = new JButton("Valider changements");
+		btnNewButton.setBounds(150, 184, 156, 21);
+		getContentPane().add(btnNewButton);
 	}
 	}
 
